@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "652608774399",
+    "project_id": "moviesproject-fce13",
+    "storage_bucket": "moviesproject-fce13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652608774399:android:415b681fda77f345afacca",
+        "android_client_info": {
+          "package_name": "com.marwa.moviesproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652608774399-81dmjem04pj7shh9naq05ef9grstukij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.marwa.moviesproject",
+            "certificate_hash": "066fb9d0dfd140c93f5f3d5aa89d7c42c6321584"
+          }
+        },
+        {
+          "client_id": "652608774399-lu1rqha790c96q7cqvqldjht3lll3b2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDulLIAQlWDJeKIdWFkocTCD-tWtY-eiW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652608774399-lu1rqha790c96q7cqvqldjht3lll3b2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
