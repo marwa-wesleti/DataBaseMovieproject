@@ -75,9 +75,9 @@ public class PageDetails {
     @SerializedName("overview")
     @Expose
     private String overview;
-    @SerializedName("popularity")
+    /*@SerializedName("popularity")
     @Expose
-    private Double popularity;
+    private Double popularity;*/
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
