@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".modules.AffichageDetailsActivity"
+        tools:context=".modules.Series"
         >
 
 
@@ -31,6 +31,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
+
         <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
@@ -44,31 +45,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/background" />
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_time"
-            android:drawablePadding="10dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@id/name"
-            app:layout_constraintLeft_toLeftOf="parent"
-             />
-
 
         <TextView
             android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="128dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
             android:drawableLeft="@drawable/ic_etoile"
             android:drawablePadding="10dp"
             android:text=""
-            app:layout_constraintTop_toBottomOf="@id/name"
-            app:layout_constraintLeft_toLeftOf="@id/time" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="68dp"
+            android:layout_marginTop="20dp"
+            android:drawableLeft="@drawable/ic_time"
+            android:drawablePadding="10dp"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/rating"
+            app:layout_constraintTop_toBottomOf="@id/name" />
 
         <View
             android:id="@+id/divider"
@@ -77,7 +77,8 @@
             android:layout_marginTop="20dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rating" />
+            app:layout_constraintTop_toBottomOf="@+id/watch" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -211,6 +212,38 @@
             android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/synopsis" />
+
+        <View
+            android:id="@+id/divider5"
+            android:layout_width="409dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rating" />
+
+        <TextView
+            android:id="@+id/dispo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Disponible en streaming "
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider5" />
+
+        <LinearLayout
+            android:id="@+id/watch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dispo" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

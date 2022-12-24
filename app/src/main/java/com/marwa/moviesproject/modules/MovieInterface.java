@@ -4,7 +4,7 @@ import com.marwa.moviesproject.models.PageCast;
 import com.marwa.moviesproject.models.PageDetails;
 import com.marwa.moviesproject.models.PageMovies;
 import com.marwa.moviesproject.models.PageVideos;
-import com.marwa.moviesproject.models.ResultCast;
+import com.marwa.moviesproject.models.ProfilCast;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -23,6 +23,9 @@ public interface MovieInterface {
 
     @GET("tv/{tv_id}/credits")
     Call<PageCast> getCasts(@Path("tv_id") int id, @Query("api_key") String key);
+
+    @GET("person/{person_id}")
+    Call<ProfilCast> getProfileCasts(@Path("person_id") int id, @Query("api_key") String key);
 
 
 

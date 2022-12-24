@@ -41,11 +41,11 @@ public class PageDetails {
 
     @SerializedName("next_episode_to_air")
     @Expose
-    private Object nextEpisodeToAir;
+    private Object nextEpisodeToAir;*/
     @SerializedName("networks")
     @Expose
     private List<Network> networks = null;
-    @SerializedName("number_of_episodes")*/
+
     @SerializedName("name")
     @Expose
     private String name;
@@ -75,9 +75,9 @@ public class PageDetails {
     @SerializedName("overview")
     @Expose
     private String overview;
-    /*@SerializedName("popularity")
+    @SerializedName("popularity")
     @Expose
-    private Double popularity;*/
+    private Double popularity;
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
@@ -212,7 +212,7 @@ public class PageDetails {
 
     public void setNextEpisodeToAir(Object nextEpisodeToAir) {
         this.nextEpisodeToAir = nextEpisodeToAir;
-    }
+    }*/
 
     public List<Network> getNetworks() {
         return networks;
@@ -220,7 +220,7 @@ public class PageDetails {
 
     public void setNetworks(List<Network> networks) {
         this.networks = networks;
-    }*/
+    }
 public String getName() {
     return name;
 }

@@ -1,15 +1,10 @@
 package com.marwa.moviesproject.modules;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -25,8 +20,10 @@ import butterknife.ButterKnife;
 
 public class splash extends AppCompatActivity {
     FirebaseAuth auth=null;
-    @BindView(R.id.movie)
+    @BindView(R.id.welcom)
             TextView movie;
+    @BindView(R.id.txt)
+    TextView txt;
     @BindView(R.id.connexion)
             TextView connexion;
     @BindView(R.id.swipeup)
@@ -43,6 +40,9 @@ public class splash extends AppCompatActivity {
         YoYo.with(Techniques.ZoomInLeft)
                 .duration(2000)
                 .playOn(movie);
+        YoYo.with(Techniques.ZoomInLeft)
+                .duration(3000)
+                .playOn(txt);
         auth= FirebaseAuth.getInstance();
         handler=new Handler();
         handler.postDelayed(new Runnable() {
@@ -51,7 +51,7 @@ public class splash extends AppCompatActivity {
                 swipeup.setRefreshing(true);
                 if (checkConnection.isConnected(splash.this)) {
                     swipeup.setRefreshing(false);
-                        Intent inttologin = new Intent(splash.this, Authentification.class);
+                        Intent inttologin = new Intent(splash.this, User.class);
                         startActivity(inttologin);
                         finish();
 
@@ -63,7 +63,7 @@ public class splash extends AppCompatActivity {
                         @Override
                         public void onRefresh() {
                             if (checkConnection.isConnected(splash.this)) {
-                                Intent inttologin = new Intent(splash.this, Authentification.class);
+                                Intent inttologin = new Intent(splash.this, User.class);
                                 startActivity(inttologin);
                                 finish();
                             }

@@ -4,9 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back">
+    android:background="@drawable/background">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/refresh">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageView"
@@ -45,6 +52,7 @@
         android:layout_marginTop="40dp"
         android:id="@+id/forme"
         android:background="@drawable/forme"
+        android:backgroundTint="@color/semi_transparent1"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -70,6 +78,7 @@
             android:hint="Your email"
             android:padding="10dp"
             android:textColor="@color/white"
+            android:inputType="textEmailAddress"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -128,6 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button"
+            android:backgroundTint="@color/white"
             android:ems="12"
             android:text="Sign In"
             android:textAllCaps="false"
@@ -168,6 +178,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/button"
+            android:backgroundTint="@color/white"
             android:ems="12"
             android:text="Sign up"
             android:textAllCaps="false"
@@ -179,6 +190,9 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 

@@ -6,6 +6,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START" />
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo"
@@ -14,15 +20,23 @@
         android:supportsRtl="true"
         android:theme="@style/MainTheme">
         <activity
-            android:name=".modules.ForgetPassword"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity
-            android:name=".modules.AffichageDetailsActivity"
+            android:name=".modules.Actor"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".modules.AffichageEmissionActivity"
+            android:name=".modules.Acount"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".modules.Password"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".modules.Series"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".modules.Home"
             android:exported="false"
             android:label="HOME" />
         <activity
@@ -30,10 +44,7 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".modules.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".modules.Authentification"
+            android:name=".modules.User"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
@@ -47,10 +58,5 @@
             </intent-filter>
         </activity>
     </application>
-    <queries>
-        <intent>
-            <action android:name="com.google.android.youtube.api.service.START" />
-        </intent>
-    </queries>
 
 </manifest>

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,16 +20,18 @@ public class AdapterCast extends RecyclerView.Adapter<AdapterCast.myViewHolder>{
     @NonNull
     Context context;
     List<ResultCast> casts;
+    Adaptermovie.OnItemSelectedListener onItemSelectedListener;
 
-    public AdapterCast(@NonNull Context context, List<ResultCast> casts) {
+    public AdapterCast(@NonNull Context context, List<ResultCast> casts, Adaptermovie.OnItemSelectedListener onItemSelectedListener) {
         this.context = context;
         this.casts = casts;
+        this.onItemSelectedListener=onItemSelectedListener;
     }
 
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.itemcast,parent,false);
-        return new myViewHolder(v);
+        return new myViewHolder(v,onItemSelectedListener);
     }
 
     @Override
@@ -50,12 +51,20 @@ public class AdapterCast extends RecyclerView.Adapter<AdapterCast.myViewHolder>{
         return casts.size();
     }
 
-    public class myViewHolder extends RecyclerView.ViewHolder {
+    public class myViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         CircleImageView imgCast;
+        Adaptermovie.OnItemSelectedListener onItemSelectedListener;
 
-        public myViewHolder(@NonNull View itemView) {
+        public myViewHolder(@NonNull View itemView, Adaptermovie.OnItemSelectedListener onItemSelectedListener) {
             super(itemView);
             imgCast=(CircleImageView) itemView.findViewById(R.id.imageCast);
+            this.onItemSelectedListener=onItemSelectedListener;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            onItemSelectedListener.itemClick(getAdapterPosition());
         }
     }
 }

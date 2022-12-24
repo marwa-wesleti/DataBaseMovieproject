@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back"
+    android:background="@drawable/background"
     >
 
 
@@ -28,6 +28,7 @@
         android:layout_marginTop="40dp"
         android:id="@+id/forme"
         android:background="@drawable/forme"
+        android:backgroundTint="@color/semi_transparent1"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -63,7 +64,7 @@
         android:hint="Your Email"
         android:padding="10dp"
         android:textColor="@color/white"
-
+            android:inputType="textEmailAddress"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -109,6 +110,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button"
+        android:backgroundTint="@color/white"
         android:ems="12"
         android:text="Sign Up"
         android:textAllCaps="false"
