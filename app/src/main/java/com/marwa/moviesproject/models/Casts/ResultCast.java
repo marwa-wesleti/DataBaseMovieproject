@@ -1,4 +1,4 @@
-package com.marwa.moviesproject.models;
+package com.marwa.moviesproject.models.Casts;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

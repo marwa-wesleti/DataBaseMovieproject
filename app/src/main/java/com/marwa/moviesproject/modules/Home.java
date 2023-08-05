@@ -1,12 +1,5 @@
 package com.marwa.moviesproject.modules;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,10 +7,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.marwa.moviesproject.R;
-import com.marwa.moviesproject.models.PageMovies;
-import com.marwa.moviesproject.models.ResultMovie;
+import com.marwa.moviesproject.models.Home.PageMovies;
+import com.marwa.moviesproject.models.Home.ResultMovie;
+import com.marwa.moviesproject.modules.Adapter.Adaptermovie;
+import com.marwa.moviesproject.modules.Authentification.Acount;
+import com.marwa.moviesproject.modules.Authentification.User;
+import com.marwa.moviesproject.modules.Details.Series;
 import com.marwa.moviesproject.network.checkConnection;
 
 import java.util.ArrayList;
@@ -33,18 +39,34 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Home extends AppCompatActivity implements Adaptermovie.OnItemSelectedListener {
+public class Home extends AppCompatActivity  {
     @BindView(R.id.recyclerView)
             RecyclerView recyclerView;
+    @BindView(R.id.recyclerPopularMovie)
+    RecyclerView recyclerPopularMovie;
+    @BindView(R.id.recyclerPopularTv)
+    RecyclerView recyclerPopularTv;
     @BindView(R.id.refreshlayout)
             SwipeRefreshLayout refreshLayout;
-    Adaptermovie adaptermovie;
-    List<ResultMovie> moviesList;
+    @BindView(R.id.txttrend)
+    TextView txttrend;
+    @BindView(R.id.txtPopularMovie)
+    TextView txtPopularMovie;
+    @BindView(R.id.txtPopulartv)
+    TextView txtPopulartv;
+
+    List<ResultMovie> moviesList=new ArrayList<>();
+    List<ResultMovie> popularMoviesList=new ArrayList<>();
+    List<ResultMovie> popularTvList=new ArrayList<>();
+
+
     String key="61ed6ee7adb8cc190be7e795b5588f32";
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     int id;
-
+    Adaptermovie adapterPopularMovie;
+    Adaptermovie adapterTrendMovie;
+    Adaptermovie getAdapterPopularTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,24 +75,32 @@ public class Home extends AppCompatActivity implements Adaptermovie.OnItemSelect
         ButterKnife.bind(this);
         sharedPreferences=getSharedPreferences("myprefrences",MODE_PRIVATE);
         editor=sharedPreferences.edit();
-        moviesList=new ArrayList<>();
-        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+        LinearLayoutManager layoutManager=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
 
         Retrofit retrofit=new Retrofit.Builder().baseUrl("https://api.themoviedb.org/3/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
-        MovieInterface movieInterface=retrofit.create(MovieInterface.class);
-        Call<PageMovies> call=movieInterface.getMovie(key);
+        DBInterface movieInterface=retrofit.create(DBInterface.class);
+        Call<PageMovies> call=movieInterface.getTrending(key);
 
+        fetchTrending(call,layoutManager);
+        Call<PageMovies> callUpCommingMovie=movieInterface.getUpPopularMovie(key);
+        //
+        LinearLayoutManager layoutManagerUpPopularMovie=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
 
-        fetchMovie(call,layoutManager);
+        fetchUpPopularMovie(callUpCommingMovie,layoutManagerUpPopularMovie);
+
+        LinearLayoutManager layoutManagerUpPopularTV=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        Call<PageMovies> callUpCommingTV=movieInterface.getUpPopularTV(key);
+
+        fetchUpPopularTv(callUpCommingTV,layoutManagerUpPopularTV);
 
 
 
 
         }
 
-    private void fetchMovie(Call<PageMovies> call, GridLayoutManager layoutManager){
+    private void fetchTrending(Call<PageMovies> call, LinearLayoutManager layoutManager){
         refreshLayout.setRefreshing(true);
         call.clone().enqueue(new Callback<PageMovies>() {
             @Override
@@ -78,7 +108,7 @@ public class Home extends AppCompatActivity implements Adaptermovie.OnItemSelect
                 refreshLayout.setRefreshing(false);
                 List<ResultMovie> m=response.body().getResults();
                 for (ResultMovie movie : m ){
-                    moviesList.add(movie);
+                    moviesList.add(movie.clone());
                 }
                 Log.d("tag","afficher "+moviesList);
                 refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -88,10 +118,115 @@ public class Home extends AppCompatActivity implements Adaptermovie.OnItemSelect
                         refreshLayout.setRefreshing(false);
                     }
                 });
+                adapterTrendMovie = new Adaptermovie(getApplicationContext(), moviesList, new Adaptermovie.OnItemSelectedListener() {
+                    @Override
+                    public void itemClick(int position) {
+                        moviesList.get(position);
+                        Intent intenttodetails=new Intent(Home.this, Series.class);
+                        intenttodetails.putExtra("id",moviesList.get(position).getId());
+                        intenttodetails.putExtra("type",moviesList.get(position).getMediaType());
+
+                        startActivity(intenttodetails);
+                    }
+                });
 
                 recyclerView.setLayoutManager(layoutManager);
-                adaptermovie=new Adaptermovie(Home.this,moviesList, Home.this);
-                recyclerView.setAdapter(adaptermovie);
+                recyclerView.setAdapter(adapterTrendMovie);
+
+
+            }
+
+            @Override
+            public void onFailure(Call<PageMovies> call, Throwable t) {
+                refreshLayout.setRefreshing(false);
+
+                Log.e("erreur",t.getMessage(),t);
+
+            }
+        });
+
+    }
+
+    private void fetchUpPopularMovie(Call<PageMovies> call, LinearLayoutManager layoutManager){
+        refreshLayout.setRefreshing(true);
+        call.clone().enqueue(new Callback<PageMovies>() {
+            @Override
+            public void onResponse(Call<PageMovies> call, Response<PageMovies> response) {
+                refreshLayout.setRefreshing(false);
+                List<ResultMovie> m=response.body().getResults();
+                for (ResultMovie movie : m ){
+                    popularMoviesList.add(movie.clone());
+
+
+                }
+                Log.d("tag","afficher "+popularMoviesList);
+                refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        Collections.shuffle(popularMoviesList,new Random(System.currentTimeMillis()));
+                        refreshLayout.setRefreshing(false);
+                    }
+                });
+                adapterPopularMovie = new Adaptermovie(getApplicationContext(), popularMoviesList, new Adaptermovie.OnItemSelectedListener() {
+                    @Override
+                    public void itemClick(int position) {
+                        Intent intenttodetails=new Intent(Home.this, Series.class);
+                        intenttodetails.putExtra("id",popularMoviesList.get(position).getId());
+                        intenttodetails.putExtra("type","movie");
+
+                        startActivity(intenttodetails);
+                    }
+                });
+
+                recyclerPopularMovie.setLayoutManager(layoutManager);
+                recyclerPopularMovie.setAdapter(adapterPopularMovie);
+
+            }
+
+            @Override
+            public void onFailure(Call<PageMovies> call, Throwable t) {
+                refreshLayout.setRefreshing(false);
+
+                Log.e("erreur",t.getMessage(),t);
+
+            }
+        });
+
+    }
+
+    private void fetchUpPopularTv(Call<PageMovies> call, LinearLayoutManager layoutManager){
+        refreshLayout.setRefreshing(true);
+        call.clone().enqueue(new Callback<PageMovies>() {
+            @Override
+            public void onResponse(Call<PageMovies> call, Response<PageMovies> response) {
+                refreshLayout.setRefreshing(false);
+                List<ResultMovie> m=response.body().getResults();
+                for (ResultMovie movie : m ){
+                    popularTvList.add(movie.clone());
+
+
+                }
+                Log.d("tag","afficher "+popularTvList);
+                refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        Collections.shuffle(popularTvList,new Random(System.currentTimeMillis()));
+                        refreshLayout.setRefreshing(false);
+                    }
+                });
+                getAdapterPopularTv = new Adaptermovie(getApplicationContext(), popularTvList, new Adaptermovie.OnItemSelectedListener() {
+                    @Override
+                    public void itemClick(int position) {
+                        Intent intenttodetails=new Intent(Home.this, Series.class);
+                        intenttodetails.putExtra("id",popularTvList.get(position).getId());
+                        intenttodetails.putExtra("type","tv");
+
+                        startActivity(intenttodetails);
+                    }
+                });
+
+                recyclerPopularTv.setLayoutManager(layoutManager);
+                recyclerPopularTv.setAdapter(getAdapterPopularTv);
 
             }
 
@@ -111,7 +246,7 @@ public class Home extends AppCompatActivity implements Adaptermovie.OnItemSelect
 
     @SuppressLint("RestrictedApi")
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu ) {
         getMenuInflater().inflate(R.menu.menu_activity,menu);
         MenuItem item=menu.findItem(R.id.search);// jebna item
         SearchView searchView=(SearchView) item.getActionView();// interface de recherche bch utilisateur yekteb haja li ylawej alha
@@ -123,10 +258,24 @@ public class Home extends AppCompatActivity implements Adaptermovie.OnItemSelect
 
             @Override
             public boolean onQueryTextChange(String newText) {// w ena kaada nekteb kaaad yaaml fel filtrage
-               adaptermovie.getFilter().filter(newText);
+               adapterTrendMovie.getFilter().filter(newText);
+               adapterPopularMovie.getFilter().filter(newText);
+               getAdapterPopularTv.getFilter().filter(newText);
+                if(newText.equals("")){
+                    txttrend.setVisibility(View.VISIBLE);
+                    txtPopularMovie.setVisibility(View.VISIBLE);
+                    txtPopulartv.setVisibility(View.VISIBLE);
+                }
+                else {
+                    txttrend.setVisibility(View.INVISIBLE);
+                    txtPopularMovie.setVisibility(View.INVISIBLE);
+                    txtPopulartv.setVisibility(View.INVISIBLE);
+                }
+
                return false;
             }
         });
+
 
         return super.onCreateOptionsMenu(menu);
 
@@ -147,7 +296,7 @@ public class Home extends AppCompatActivity implements Adaptermovie.OnItemSelect
                     return true;
                 }
             case R.id.acount:
-                startActivity(new Intent(getApplicationContext(),Acount.class));
+                startActivity(new Intent(getApplicationContext(), Acount.class));
                 return true;
 
 
@@ -160,16 +309,7 @@ public class Home extends AppCompatActivity implements Adaptermovie.OnItemSelect
     }
 
 
-    @Override
-    public void itemClick(int position) {
-        moviesList.get(position);
-        Intent intenttodetails=new Intent(Home.this, Series.class);
-        intenttodetails.putExtra("id",moviesList.get(position).getId());
-        startActivity(intenttodetails);
 
-        Log.d("tag","Clicked: "+position);
-
-    }
 
 
 

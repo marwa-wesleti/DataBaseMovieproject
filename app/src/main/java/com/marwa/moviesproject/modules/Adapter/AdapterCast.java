@@ -1,16 +1,17 @@
-package com.marwa.moviesproject.modules;
+package com.marwa.moviesproject.modules.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.marwa.moviesproject.R;
-import com.marwa.moviesproject.models.ResultCast;
+import com.marwa.moviesproject.models.Casts.ResultCast;
 
 import java.util.List;
 
@@ -43,6 +44,8 @@ public class AdapterCast extends RecyclerView.Adapter<AdapterCast.myViewHolder>{
                     .centerCrop()
                     .into(holder.imgCast);
         }
+        holder.nameTxt.setText(casts.get(position).getName());
+        holder.nameCaracter.setText(casts.get(position).getCharacter());
 
     }
 
@@ -53,11 +56,17 @@ public class AdapterCast extends RecyclerView.Adapter<AdapterCast.myViewHolder>{
 
     public class myViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         CircleImageView imgCast;
+        TextView nameTxt;
+        TextView nameCaracter;
+
         Adaptermovie.OnItemSelectedListener onItemSelectedListener;
 
         public myViewHolder(@NonNull View itemView, Adaptermovie.OnItemSelectedListener onItemSelectedListener) {
             super(itemView);
             imgCast=(CircleImageView) itemView.findViewById(R.id.imageCast);
+            nameTxt=(TextView) itemView.findViewById(R.id.nameActor);
+            nameCaracter=(TextView) itemView.findViewById(R.id.nameCaracter);
+
             this.onItemSelectedListener=onItemSelectedListener;
             itemView.setOnClickListener(this);
         }

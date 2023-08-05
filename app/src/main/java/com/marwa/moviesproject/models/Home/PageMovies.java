@@ -1,4 +1,4 @@
-package com.marwa.moviesproject.models;
+package com.marwa.moviesproject.models.Home;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -11,7 +11,7 @@ public class PageMovies {
     private Integer page;
     @SerializedName("results")
     @Expose
-    private List<ResultMovie> results = null;
+    private List<ResultMovie> results;
     @SerializedName("total_pages")
     @Expose
     private Integer totalPages;
@@ -52,4 +52,3 @@ public class PageMovies {
     }
 
 }
-

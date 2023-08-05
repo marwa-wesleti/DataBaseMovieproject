@@ -1,4 +1,4 @@
-package com.marwa.moviesproject.modules;
+package com.marwa.moviesproject.modules.Authentification;
 
 
 import android.content.Intent;
@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.marwa.moviesproject.R;
+import com.marwa.moviesproject.modules.Home;
 import com.marwa.moviesproject.network.checkConnection;
 
 import butterknife.BindView;
@@ -139,8 +140,8 @@ public class User extends AppCompatActivity {
                     else{
                         refresh.setRefreshing(false);
                         Toast.makeText(User.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        login.setText("");
-                        password.setText("");
+                        Log.i("e", task.getException().getMessage());
+
                     }
                 }
             });

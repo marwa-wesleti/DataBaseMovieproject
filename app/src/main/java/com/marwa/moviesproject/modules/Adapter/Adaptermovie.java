@@ -1,6 +1,5 @@
-package com.marwa.moviesproject.modules;
+package com.marwa.moviesproject.modules.Adapter;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,30 +7,18 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.marwa.moviesproject.R;
-import com.marwa.moviesproject.models.GenreMovie;
-import com.marwa.moviesproject.models.PageDetails;
-import com.marwa.moviesproject.models.PageMovies;
-import com.marwa.moviesproject.models.ResultCast;
-import com.marwa.moviesproject.models.ResultMovie;
+import com.marwa.moviesproject.models.Home.ResultMovie;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import retrofit2.Callback;
 
 public class Adaptermovie extends RecyclerView.Adapter<Adaptermovie.myViewHolder> implements Filterable {
     @NonNull
@@ -67,7 +54,13 @@ public class Adaptermovie extends RecyclerView.Adapter<Adaptermovie.myViewHolder
                 .placeholder(R.drawable.prograss_bar)
                 .centerCrop()
                 .into(holder.img);
-        holder.nom.setText(movies.get(position).getName());
+        if (movies.get(position).getTitle() == null || movies.get(position).getTitle().trim().isEmpty()) {
+            // getTitle est vide, utiliser getName à la place
+            holder.nom.setText(movies.get(position).getName());
+        } else {
+            // Utiliser getTitle car il n'est pas vide
+            holder.nom.setText(movies.get(position).getTitle());
+        }
         holder.rate.setText(""+(Math.round(movies.get(position).getVoteAverage()))*10+"%");
 
 
@@ -87,21 +80,27 @@ public class Adaptermovie extends RecyclerView.Adapter<Adaptermovie.myViewHolder
     Filter filter=new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
-            List<ResultMovie> filtertolist = new ArrayList<>();// declarit list bch nhot feha film filté
-            if (charSequence.toString().isEmpty()) { //testit ken bulle de recherche vide ykhali liste kima hya
+            List<ResultMovie> filtertolist = new ArrayList<>(); // Initialisation de la liste filtrée
+            if (charSequence == null || charSequence.length() == 0) {
+                // La chaîne de recherche est vide, renvoyer la liste complète
                 filtertolist.addAll(movieListAll);
-
             } else {
+                // Parcourir la liste complète pour filtrer les éléments correspondants
                 for (ResultMovie movie : movieListAll) {
-                    if (movie.getName().toLowerCase().contains(charSequence.toString().toLowerCase()) ){ //yparcouri fel liste aflem w ytesti ken nom fil contient carractére  fel bulle de recherche
+                    if (movie.getTitle() != null && movie.getTitle().toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                        filtertolist.add(movie);
+                    } else if (movie.getName() != null && movie.getName().toLowerCase().contains(charSequence.toString().toLowerCase())) {
                         filtertolist.add(movie);
                     }
                 }
             }
-            FilterResults filterResults=new FilterResults(); // bch nhot resultat fi variable
-            filterResults.values=filtertolist;
-            return filterResults;
 
+            // Créer le résultat du filtrage
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filtertolist;
+            filterResults.count = filtertolist.size(); // Définir le nombre d'éléments dans la liste filtrée
+
+            return filterResults;
         }
 
         @Override

@@ -13,4 +13,25 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameActor"
+        app:layout_constraintTop_toBottomOf="@id/imageCast"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginTop="5dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameCaracter"
+        app:layout_constraintTop_toBottomOf="@id/nameActor"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="12dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="5dp"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

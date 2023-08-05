@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.marwa.moviesproject.R;
+import com.marwa.moviesproject.modules.Authentification.User;
 import com.marwa.moviesproject.network.checkConnection;
 
 import butterknife.BindView;
@@ -20,8 +22,9 @@ import butterknife.ButterKnife;
 
 public class splash extends AppCompatActivity {
     FirebaseAuth auth=null;
-    @BindView(R.id.welcom)
-            TextView movie;
+
+    @BindView(R.id.tv)
+    ImageView tv;
     @BindView(R.id.txt)
     TextView txt;
     @BindView(R.id.connexion)
@@ -36,13 +39,17 @@ public class splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-
-        YoYo.with(Techniques.ZoomInLeft)
+        tv.setVisibility(View.VISIBLE);
+        YoYo.with(Techniques.FlipInX)
                 .duration(2000)
-                .playOn(movie);
-        YoYo.with(Techniques.ZoomInLeft)
-                .duration(3000)
-                .playOn(txt);
+                .onEnd(animator -> {
+                    txt.setVisibility(View.VISIBLE);
+                    YoYo.with(Techniques.BounceIn)
+                        .duration(4000)
+                        .playOn(txt);
+                })
+                .playOn(tv);
+
         auth= FirebaseAuth.getInstance();
         handler=new Handler();
         handler.postDelayed(new Runnable() {
@@ -76,7 +83,7 @@ public class splash extends AppCompatActivity {
                 }
             }
 
-        },4000);
+        },6000);
 
 
 

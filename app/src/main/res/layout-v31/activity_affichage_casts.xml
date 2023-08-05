@@ -4,73 +4,197 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/system_accent2_200"
-    tools:context=".modules.Actor">
+    android:background="@color/white"
+    tools:context=".modules.Details.Actor">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:layout_marginTop="180dp"
         android:background="@drawable/acount"
         android:backgroundTint="@color/semi_transparent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/linerLaout">
 
-        <ScrollView
+
+        <LinearLayout
+            android:id="@+id/lineaActor"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            tools:layout_editor_absoluteY="0dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+            <LinearLayout
+                android:id="@+id/linearActor1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/nomprofile"
+                    android:id="@+id/txtBirth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="30dp"
-                    android:textStyle="bold"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_gravity="left"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Date Of Birth"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/bibliographie"
-                    android:layout_width="match_parent"
+                    android:id="@+id/birth"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_gravity="left"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="15dp"
+                    android:text=""
+                    android:textColor="@color/white"
+
+                    android:textSize="15dp"
+
+                     />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearActor2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtPlaceBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
+                    android:text="Place Of Birth"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@id/txtBirth"
+                    app:layout_constraintStart_toEndOf="@+id/txtBirth" />
+
+                <TextView
+                    android:id="@+id/place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
                     android:text=""
                     android:textColor="@color/white"
                     android:textSize="15dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/nomprofile" />
+
+                    app:layout_constraintStart_toEndOf="@+id/birth"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPlaceBirth" />
+
+            </LinearLayout>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtFamous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Famous For"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lineaActor" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerFamous"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtFamous" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profilCast"
-        android:layout_width="131dp"
-        android:layout_height="129dp"
-        android:layout_marginTop="96dp"
+    <LinearLayout
+        android:id="@+id/linerLaout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:orientation="horizontal"
+        android:layout_marginRight="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/lineaLayout1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/profilCast"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayaout2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nomprofile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/profilCast"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/bibliographie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                app:layout_constraintLeft_toRightOf="@id/profilCast"
+                app:layout_constraintTop_toBottomOf="@id/nomprofile" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-

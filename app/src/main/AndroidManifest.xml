@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.marwa.moviesproject">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
 
     <queries>
         <intent>
@@ -15,24 +15,25 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo"
-        android:label=""
+        android:label="MovieMap"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/MainTheme">
         <activity
-            android:name=".modules.Actor"
+            android:name=".modules.Details.Actor"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".modules.Acount"
+            android:name=".modules.Authentification.Acount"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".modules.Password"
+            android:name=".modules.Authentification.Password"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".modules.Series"
+            android:name=".modules.Details.Series"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
@@ -40,11 +41,11 @@
             android:exported="false"
             android:label="HOME" />
         <activity
-            android:name=".modules.CreateAccount_Activity"
+            android:name=".modules.Authentification.CreateAccount_Activity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".modules.User"
+            android:name=".modules.Authentification.User"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity

@@ -1,4 +1,4 @@
-package com.marwa.moviesproject.models;
+package com.marwa.moviesproject.models.Home;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -1,14 +1,15 @@
-package com.marwa.moviesproject.models;
+package com.marwa.moviesproject.models.Casts;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.marwa.moviesproject.models.Home.ResultMovie;
 
 import java.util.List;
 
-public class PageCast {
+public class PagePerson {
     @SerializedName("cast")
     @Expose
-    private List<ResultCast> cast = null;
+    private List<ResultMovie> cast = null;
     /*@SerializedName("crew")
     @Expose
     private List<Crew> crew = null;
@@ -16,11 +17,11 @@ public class PageCast {
     @Expose
     private Integer id;*/
 
-    public List<ResultCast> getCast() {
+    public List<ResultMovie> getCast() {
         return cast;
     }
 
-    public void setCast(List<ResultCast> cast) {
+    public void setCast(List<ResultMovie> cast) {
         this.cast = cast;
     }
 
@@ -41,3 +42,5 @@ public class PageCast {
     }*/
 
 }
+
+

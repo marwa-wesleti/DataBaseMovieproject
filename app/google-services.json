@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "652608774399-81dmjem04pj7shh9naq05ef9grstukij.apps.googleusercontent.com",
+          "client_id": "652608774399-pbr5gdsotd050ciodqaj04p0v4kudqv8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.marwa.moviesproject",
-            "certificate_hash": "066fb9d0dfd140c93f5f3d5aa89d7c42c6321584"
+            "certificate_hash": "c9b6d4ed2bdb21ca4d7ba7b65f4262767de27364"
           }
         },
         {
